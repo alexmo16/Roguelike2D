@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private MapBuilder m_mapBuilder;
-    private int m_level = 1;
-
+    private MapBuilder m_mapBuilder;    
     public static GameManager instance = null;
+    public int m_playerFoodPoints = 100;
+    [HideInInspector] public bool m_playersTurn = true;
+
+    private int m_level = 5;
 
     //Use this for initialization
     private void Awake()
@@ -30,6 +32,11 @@ public class GameManager : MonoBehaviour
     private void InitGame()
     {
         m_mapBuilder.SetupScene(m_level);
+    }
+
+    public void GameOver()
+    {
+        enabled = false;
     }
 
     // Update is called once per frame

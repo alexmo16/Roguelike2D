@@ -21,8 +21,7 @@ public class Wall : MonoBehaviour
         m_hp -= lossHp_;
         if (m_hp <= 0)
         {
-            //gameObject.SetActive(false);
-            Destroy(this);
+            gameObject.SetActive(false);
         }
     }
 }
