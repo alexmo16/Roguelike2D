@@ -36,14 +36,14 @@ public class MapBuilder : MonoBehaviour
     private Transform m_boardHolder;
     private List<Vector3> m_gridPositions = new List<Vector3>();
 
-    public void SetupScene(int level)
+    public void SetupScene(int level_)
     {
         BoardSetup();
         InitaliseList();
         LayoutObjectAtRandom(m_wallTiles, m_wallCount.minimum, m_wallCount.maximum);
         LayoutObjectAtRandom(m_foodTiles, m_foodCount.minimum, m_foodCount.maximum);
         // Log to always a bigger number of enemies with higher levels.
-        int enemiesNumberToSpawn = (int)Mathf.Log(level, 2f);
+        int enemiesNumberToSpawn = (int)Mathf.Log(level_, 2f);
         LayoutObjectAtRandom(m_enemyTiles, enemiesNumberToSpawn, enemiesNumberToSpawn);
         Instantiate(m_exit, new Vector3(m_columns - 1, m_rows - 1, 0f), Quaternion.identity);
     }
@@ -90,13 +90,13 @@ public class MapBuilder : MonoBehaviour
         return randomPosition;
     }
 
-private void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
+private void LayoutObjectAtRandom(GameObject[] tileArray_, int minimum_, int maximum_)
     {
-        int objectCount = Random.Range(minimum, maximum + 1);
+        int objectCount = Random.Range(minimum_, maximum_ + 1);
         for (int i = 0; i < objectCount; ++i)
         {
             Vector3 randomPosition = GetRandomGridPositionAndRemove();
-            GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
+            GameObject tileChoice = tileArray_[Random.Range(0, tileArray_.Length)];
             Instantiate(tileChoice, randomPosition, Quaternion.identity);
         }
     }
