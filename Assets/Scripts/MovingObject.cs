@@ -50,7 +50,7 @@ public abstract class MovingObject : MonoBehaviour
     }
 
     //T is the component we want to verify if there is a collision with.
-    protected virtual void AttemptMove <T> (int xDir_, int yDir_) 
+    protected virtual void AttemptMove<T>(int xDir_, int yDir_)
         where T : Component
     {
         RaycastHit2D hit;

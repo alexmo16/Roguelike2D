@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MovingObject
 {
-    private int m_damage;
+    private int m_damage = 10;
     private Animator m_animator;
     private Transform m_target;
     private bool m_isSkippingMove;
@@ -53,7 +53,7 @@ public class Enemy : MovingObject
         }
 
         base.AttemptMove<T>(xDir_, yDir_);
-        
+
         m_isSkippingMove = true;
     }
 }
