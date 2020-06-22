@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MovingObject
 {
-    private int m_damage = 10;
+    protected virtual int m_damage => 10;
     private Animator m_animator;
     private Transform m_target;
     private bool m_isSkippingMove;
@@ -30,6 +30,7 @@ public class Enemy : MovingObject
 
     protected override void Start()
     {
+        GameManager.m_instance.AddEnemyToList(this);
         m_animator = GetComponent<Animator>();
         m_target = GameObject.Find("Player").transform; // wash
         base.Start();
@@ -38,10 +39,8 @@ public class Enemy : MovingObject
     protected override void OnCantMove<T>(T component_)
     {
         Player hitPlayer = component_ as Player;
-        if (hitPlayer != null)
-        {
-            hitPlayer.LoseFood(m_damage);
-        }
+        m_animator.SetTrigger("enemyAttack");
+        hitPlayer.LoseFood(m_damage);
     }
 
     protected override void AttemptMove<T>(int xDir_, int yDir_)

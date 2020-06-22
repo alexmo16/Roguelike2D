@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     public float m_turnDelay = 0.1f; //Delay between each Player turn.
     private MapBuilder m_mapBuilder;
-    private int m_level = 5;
+    private int m_level = 3;
     private List<Enemy> m_enemies = new List<Enemy>();
     private bool m_enemiesIsMoving;
 
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     //Use this for initialization
     private void Awake()
     {
-        if (m_instance is null)
+        if (m_instance == null)
         {
             m_instance = this;
         }
@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MoveEnemies()
     {
-        m_isPlayerTurn = false;
         m_enemiesIsMoving = true;
         yield return new WaitForSeconds(m_turnDelay);
         if (m_enemies.Count == 0)

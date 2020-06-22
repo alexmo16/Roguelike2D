@@ -8,7 +8,7 @@ public abstract class MovingObject : MonoBehaviour
 
     private BoxCollider2D m_boxCollider;
     private Rigidbody2D m_rb2D;
-    private float m_inverseMoveTime = 0.1f;
+    private float m_inverseMoveTime = 0;
 
     // Start is called before the first frame update
     protected virtual void Start()
