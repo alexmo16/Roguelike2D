@@ -25,7 +25,10 @@ public class Player : MovingObject
     protected override void Start()
     {
         m_animator = GetComponent<Animator>();
-        m_foodPoints = GameManager.instance.m_playerFoodPoints;
+        if (GameManager.m_instance == null)
+        {
+            m_foodPoints = GameManager.m_instance.m_playerFoodPoints;
+        }
 
         base.Start();
     }
@@ -38,7 +41,7 @@ public class Player : MovingObject
         //RaycastHit2D hit;
         CheckIfGameOver();
 
-        GameManager.instance.m_playersTurn = false;
+        GameManager.m_instance.m_isPlayerTurn = false;
     }
 
     protected override void OnCantMove<T>(T component_)
@@ -51,7 +54,7 @@ public class Player : MovingObject
     // Update is called once per frame
     private void Update()
     {
-        if (!GameManager.instance.m_playersTurn) return;
+        if (!GameManager.m_instance.m_isPlayerTurn) return;
 
         int horizontal = (int)Input.GetAxisRaw("Horizontal");
         int vertical = (int)Input.GetAxisRaw("Vertical");
@@ -68,7 +71,7 @@ public class Player : MovingObject
     }
     private void OnDisable()
     {
-        GameManager.instance.m_playerFoodPoints = m_foodPoints;
+        GameManager.m_instance.m_playerFoodPoints = m_foodPoints;
     }
 
     private void Restart()
@@ -80,7 +83,7 @@ public class Player : MovingObject
     {
         if (m_foodPoints <= 0)
         {
-            GameManager.instance.GameOver();
+            GameManager.m_instance.GameOver();
         }
     }
 

@@ -74,7 +74,7 @@ public class MapBuilder : MonoBehaviour
                 if (x == -1 || x == m_columns || y == -1 || y == m_rows)
                 {
                     toInstantiate = m_outerWallTiles[Random.Range(0, m_outerWallTiles.Length)];
-                }                
+                }
                 GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(m_boardHolder);
             }
@@ -90,7 +90,7 @@ public class MapBuilder : MonoBehaviour
         return randomPosition;
     }
 
-private void LayoutObjectAtRandom(GameObject[] tileArray_, int minimum_, int maximum_)
+    private void LayoutObjectAtRandom(GameObject[] tileArray_, int minimum_, int maximum_)
     {
         int objectCount = Random.Range(minimum_, maximum_ + 1);
         for (int i = 0; i < objectCount; ++i)

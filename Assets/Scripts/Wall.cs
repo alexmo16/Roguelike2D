@@ -5,7 +5,7 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
     public Sprite m_dmgSprite;
-    
+
     private int m_hp = 4;
     private SpriteRenderer m_spriteRenderer;
 
