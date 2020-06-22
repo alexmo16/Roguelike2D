@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     public float m_turnDelay = 0.1f; //Delay between each Player turn.
     private MapBuilder m_mapBuilder;
-    private int m_level = 3;
+    private int m_level = 5;
     private List<Enemy> m_enemies = new List<Enemy>();
     private bool m_enemiesIsMoving;
 
