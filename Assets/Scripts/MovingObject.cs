@@ -5,15 +5,16 @@ using UnityEngine;
 public abstract class MovingObject : MonoBehaviour
 {
     public float m_moveTime = 0.1f;
-    public LayerMask m_layer;
 
     private BoxCollider2D m_boxCollider;
     private Rigidbody2D m_rb2D;
     private float m_inverseMoveTime = 0;
+    private LayerMask m_layer;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        m_layer = 1 << gameObject.layer;
         m_boxCollider = GetComponent<BoxCollider2D>();
         m_rb2D = GetComponent<Rigidbody2D>();
         m_inverseMoveTime = 1f / m_moveTime;
