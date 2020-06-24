@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Enemy : MovingObject
@@ -8,6 +9,8 @@ public class Enemy : MovingObject
     private Animator m_animator;
     private Transform m_target;
     private bool m_isSkippingMove;
+    [SerializeField] private AudioClip m_Attack1 = null;
+    [SerializeField] private AudioClip m_Attack2 = null;
 
     public void MoveEnemy()
     {
@@ -40,6 +43,7 @@ public class Enemy : MovingObject
     {
         Player hitPlayer = component_ as Player;
         m_animator.SetTrigger("enemyAttack");
+        SoundManager.m_instance.RandomizeSfx(m_Attack1, m_Attack2);
         hitPlayer.LoseFood(m_damage);
     }
 
