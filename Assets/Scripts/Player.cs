@@ -6,14 +6,11 @@ using UnityEngine.UI;
 
 public class Player : MovingObject
 {
-    public int m_wallDamage = 1;
-    public int m_pointsPerFood = 10;
-    public int m_pointsPerSoda = 20;
-    public float m_restartLevelDelay = 1f;
-    public Text m_foodText;
-
-    private Animator m_animator;
-    private int m_foodPoints = 0;
+    [SerializeField] private int m_wallDamage = 1;
+    [SerializeField] private int m_pointsPerFood = 10;
+    [SerializeField] private int m_pointsPerSoda = 20;
+    [SerializeField] private float m_restartLevelDelay = 1f;
+    [SerializeField] private Text m_foodText;
 
     [SerializeField] private AudioClip m_moveSound1 = null;
     [SerializeField] private AudioClip m_moveSound2 = null;
@@ -22,6 +19,10 @@ public class Player : MovingObject
     [SerializeField] private AudioClip m_drinkSound1 = null;
     [SerializeField] private AudioClip m_drinkSound2 = null;
     [SerializeField] private AudioClip m_gameOverSound = null;
+
+    private Animator m_animator;
+    private int m_foodPoints = 0;
+    private Vector2 m_touchOrigin = -Vector2.one;
 
     public void LoseFood(int loss_)
     {
@@ -70,13 +71,42 @@ public class Player : MovingObject
     {
         if (!GameManager.m_instance.m_isPlayerTurn) return;
 
-        int horizontal = (int)Input.GetAxisRaw("Horizontal");
-        int vertical = (int)Input.GetAxisRaw("Vertical");
+        int horizontal = 0;
+        int vertical = 0;
+
+#if UNITY_STANDALONE || UNITY_WEBPLAYER
+        horizontal = (int)Input.GetAxisRaw("Horizontal");
+        vertical = (int)Input.GetAxisRaw("Vertical");
 
         if (horizontal != 0)
         {
             vertical = 0;
         }
+#else
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.touches[0];
+            if (touch.phase == TouchPhase.Began)
+            {
+                m_touchOrigin = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Ended && m_touchOrigin.x >=0)
+            {
+                Vector2 touchEnd = touch.position;
+                float x = touchEnd.x - m_touchOrigin.x;
+                float y = touchEnd.y - m_touchOrigin.y;
+                m_touchOrigin.x = -1;
+                if (Mathf.Abs(x) > Mathf.Abs(y))
+                {
+                    horizontal = x > 0 ? 1 : -1;
+                }
+                else
+                {
+                    vertical = y > 0 ? 1 : -1;
+                }
+            }
+        }
+#endif
 
         if (horizontal != 0 || vertical != 0)
         {
